@@ -1,0 +1,105 @@
+#include "stdafx.h"
+#include "TServer.h"
+
+
+TServer::TServer()
+{
+	callback_function_accept = OnAccept;
+	callback_function_read = OnReceive;
+	callback_function_close = OnDisconnect;
+}
+
+
+TServer::~TServer()
+{
+}
+
+HRESULT TServer::OnAccept(LPVOID lpvParam, DWORD dwIndex)
+{
+	TServer *pListener = (TServer *)lpvParam;
+	SOCKET client_sock = pListener->Accept(dwIndex);
+
+	if (INVALID_SOCKET == client_sock)
+	{
+		return S_FALSE;
+	}
+	/*
+	тут мы получили сокет нового клиента и вызываем обработчик подключения
+	который в случае успеха возвращает указатель на класс Сcleint
+	
+	CClient* pClient = CLoginServer::OnConnect(client_sock, pListener->m_nPort);
+	if (NULL == pClient)
+	{
+		return S_FALSE;
+	}
+	*/
+	// заносим указатель на объект в структуру для быстрого доступа в случае чего.
+	//pListener->listeningSockets[pListener->numListeningSockets - 1].m_pClient = pClient;
+
+	return S_OK;
+}
+
+HRESULT TServer::OnReceive(LPVOID lpvParam, DWORD dwIndex)
+{
+	TServer *pListener = (TServer *)lpvParam;
+	//CClient* lpClient = pListener->m_ListeningSockets[dwIndex].m_pClient;
+	SOCKET m_hSocket = pListener->listeningSockets[dwIndex].hSocket;
+
+
+/*
+	char m_szRecvBuffer[RCV_BUFFER_SIZE];
+	WSABUF m_RecvBuffer;
+	DWORD  m_dwNumRecvBytes;
+
+	m_RecvBuffer.buf = m_szRecvBuffer;
+	m_RecvBuffer.len = RCV_BUFFER_SIZE;
+
+
+	//READ PACKET SIZE
+	HRESULT hr = COverlappedSocket::OnRecive(m_hSocket, dwIndex, &m_RecvBuffer, &m_dwNumRecvBytes);
+	if (S_OK != hr)
+		return S_FALSE;
+
+	WORD len = *(WORD*)&m_RecvBuffer.buf[0];
+	m_RecvBuffer.buf = new char[len];
+	m_RecvBuffer.len = len;
+
+	//READ PACKET BODY
+	hr = COverlappedSocket::OnRecive(m_hSocket, dwIndex, &m_RecvBuffer, &m_dwNumRecvBytes);
+	if (S_OK != hr) return S_FALSE;
+
+	BYTE* data_buf = new BYTE[len + 2];
+	memcpy(&data_buf[0], &len, 2);
+	memcpy(&data_buf[2], m_RecvBuffer.buf, len);
+
+	//тут самое место для вызова обработчика полученных пакетов
+
+
+	delete[] data_buf;
+	delete[] m_RecvBuffer.buf;
+	*/
+
+	return S_OK;
+}
+
+/*
+CClient* TServer::OnConnect(SOCKET client_sock, int m_nPort)
+{
+	//новое подключение к LOGINSERVER
+	CClient* pClient = new CClient;
+	if (NULL == pClient) return NULL;
+
+	return pClient;
+}
+*/
+
+
+HRESULT TServer::OnDisconnect(LPVOID lpvParam, DWORD dwIndex)
+{
+	TServer *pListener = (TServer *)lpvParam;
+	//CClient* lpClient = pListener->m_ListeningSockets[dwIndex].m_pClient;
+
+	//тут самое место для обработчика события «клиент отвалился»
+
+	return S_OK;
+}
