@@ -2,7 +2,8 @@
 #include "TListener.h"
 
 
-TListener::TListener()
+TListener::TListener(TMessageQueue* mQueue)
+	:mQueue_(mQueue)
 {
 }
 

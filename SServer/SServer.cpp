@@ -3,11 +3,13 @@
 
 #include "stdafx.h"
 #include "TServer.h"
+#include "router_service.h"
 
 
 int main()
 {
-	TServer srv;
+	router_service rc;
+	TServer srv(&rc);
 	srv.startServer(4399);
 	for (;;)
 	{

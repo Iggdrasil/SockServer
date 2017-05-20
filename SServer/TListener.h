@@ -1,5 +1,7 @@
 #pragma once
 #include <WinSock2.h>
+#include "TClient.h"
+#include "TMessageQueue.h"
 #define VERSION_MAJOR      2
 #define VERSION_MINOR      0
 #define MAX_LISTENING_SOCKETS    1024
@@ -10,25 +12,25 @@ typedef struct tagLISTENSOCK
 {
 	SOCKET hSocket;
 	LPWSAPROTOCOL_INFO ProtoInfo;
-	//CClient* m_pClient;
+	TClient* m_pClient;
 
 }LISTENSOCK, *PLISTENSOCK;
 
 
 class TListener
 {
-	DWORD port_;
 	DWORD numAvailableProtocols;
-	
+
 	LPWSAPROTOCOL_INFO availableProtocols;
 	HANDLE listeningEventObj[MAX_LISTENING_SOCKETS];
 
 protected:
+	DWORD port_;
 	DWORD numListeningSockets;
 	LISTENSOCK listeningSockets[MAX_LISTENING_SOCKETS];
-
+	TMessageQueue* mQueue_;
 public:
-	TListener();
+	TListener(TMessageQueue* mQueue);
 	~TListener();
 
 public:
