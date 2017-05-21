@@ -37,7 +37,9 @@ bool TListener::startServer(int port)
 	HANDLE hThread = (HANDLE)CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)startListenThreadProc, LPVOID(this), 0, &ListenThreadID);
 
 	if (hThread == NULL)
+	{
 		return false;
+	}
 
 	return true;
 }
@@ -91,7 +93,6 @@ SOCKET TListener::Accept(DWORD dwIndex)
 	}
 
 	listeningSockets[numListeningSockets].hSocket = s;
-	//m_ListeningSockets[m_nNumListeningSockets].m_pClient = NULL;
 
 	listeningSockets[numListeningSockets].ProtoInfo = NULL;
 	if (++numListeningSockets == MAX_LISTENING_SOCKETS)

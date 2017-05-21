@@ -34,9 +34,11 @@ public:
 	~TListener();
 
 public:
-	static void startListenThreadProc(LPVOID lpvParam);
 	bool startServer(int port);
+
+	static void startListenThreadProc(LPVOID lpvParam);
 	static HRESULT OnRecive(SOCKET socket, DWORD dwIndex, WSABUF* recvBuffer, DWORD* numRecvBytes);
+
 	SOCKET Accept(DWORD dwIndex);
 
 private:

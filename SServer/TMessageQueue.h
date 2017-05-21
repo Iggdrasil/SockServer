@@ -1,8 +1,9 @@
 #pragma once
 #include "SafeQueue.h"
-#include "TClient.h"
 
-class TMessageQueue : public safeQueue<TClient*>
+struct tagLISTENSOCK;
+
+class TMessageQueue : public safeQueue<tagLISTENSOCK*>
 {
 public:
 	TMessageQueue();

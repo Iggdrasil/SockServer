@@ -9,12 +9,16 @@
 int main()
 {
 	router_service rc;
+	if (!rc.startProcess())
+	{
+		return 0;
+	}
 	TServer srv(&rc);
 	srv.startServer(4399);
 	for (;;)
 	{
 		Sleep(5);
-		//Update();//я думаю что в каждом сервере нужна функция, вызываемая периодически с боле-менее постоянным интервалом.
+		//Update();
 	}
     return 0;
 }

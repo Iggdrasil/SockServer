@@ -30,16 +30,17 @@ HRESULT TServer::OnAccept(LPVOID lpvParam, DWORD dwIndex)
 	тут мы получили сокет нового клиента и вызываем обработчик подключения
 	который в случае успеха возвращает указатель на класс Tcleint
 	*/
+	
+
 	TClient* pClient = TServer::OnConnect(client_sock, pListener->port_);
 	if (NULL == pClient)
 	{
 		return S_FALSE;
 	}
 
-	pListener->mQueue_->push(pClient);
-	//mQueue_->push(pClient);
-	// заносим указатель на объект в структуру для быстрого доступа в случае чего.
-	//pListener->listeningSockets[pListener->numListeningSockets - 1].m_pClient = pClient;
+	pListener->listeningSockets[pListener->numListeningSockets - 1].m_pClient = pClient;
+
+	pListener->mQueue_->push(&pListener->listeningSockets[pListener->numListeningSockets - 1]);
 
 	return S_OK;
 }
@@ -62,20 +63,7 @@ HRESULT TServer::OnReceive(LPVOID lpvParam, DWORD dwIndex)
 		return S_FALSE;
 	}
 
-
-/*
-
-
-	BYTE* data_buf = new BYTE[len + 2];
-	memcpy(&data_buf[0], &len, 2);
-	memcpy(&data_buf[2], m_RecvBuffer.buf, len);
-
-	//тут самое место для вызова обработчика полученных пакетов
-
-
-	delete[] data_buf;
-	delete[] m_RecvBuffer.buf;
-	*/
+	pListener->listeningSockets[dwIndex].m_pClient->addData(m_RecvBuffer.buf, m_dwNumRecvBytes);
 
 	return S_OK;
 }

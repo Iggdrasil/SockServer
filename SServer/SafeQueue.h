@@ -31,9 +31,11 @@ public:
 
 	bool empty()
 	{
+		bool ret;
 		_mutex.lock();
-		return _q.empty();
+		ret = _q.empty();
 		_mutex.unlock();
+		return ret;
 	}
 
 };

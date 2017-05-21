@@ -1,6 +1,7 @@
 #pragma once
 #include "TMessageQueue.h"
-#include <Windows.h>
+
+typedef void* LPVOID;
 
 class router_service :
 	public TMessageQueue
