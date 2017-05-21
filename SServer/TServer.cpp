@@ -86,9 +86,8 @@ TClient* TServer::OnConnect(SOCKET client_sock, int m_nPort)
 HRESULT TServer::OnDisconnect(LPVOID lpvParam, DWORD dwIndex)
 {
 	TServer *pListener = (TServer *)lpvParam;
-	//CClient* lpClient = pListener->m_ListeningSockets[dwIndex].m_pClient;
 
-	//тут самое место для обработчика события «клиент отвалился»
+
 
 	return S_OK;
 }

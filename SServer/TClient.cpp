@@ -7,7 +7,7 @@ using std::endl;
 
 
 TClient::TClient()
-	:data_(NULL)
+	:data_(NULL), len_(0)
 {
 }
 
@@ -26,7 +26,8 @@ void TClient::addData(const char * src, size_t len)
 
 	data_ = new char[len];
 	memcpy(data_, src, len);
-
+	len_ = len;
+	return;
 }
 
 void TClient::printData()
@@ -40,4 +41,14 @@ void TClient::printData()
 	{
 		cout << "No data" << endl;
 	}
+}
+
+void TClient::getdata(char *& dst, size_t & len)
+{
+	if (data_ == NULL || len_ == 0)
+	{
+		return;
+	}
+	dst = data_;
+	len = len_;
 }
