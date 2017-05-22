@@ -1,14 +1,16 @@
 #pragma once
+#include <list>
 #include "TMessageQueue.h"
 #include "TClient.h"
 #include "THttpHeaderParser.h"
+
 
 typedef void* LPVOID;
 
 class router_service :
 	public TMessageQueue
 {
-	TMessageQueue processed_;
+	std::list<tagLISTENSOCK*> processed_;
 	THttpHeaderParser httpHeaderParser_;
 public:
 	router_service();
@@ -20,5 +22,6 @@ public:
 
 private:
 	bool preprocess(TClient* cli);
+	void idle();
 };
 

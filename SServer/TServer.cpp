@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "TServer.h"
+#include <iostream>
+using std::cout;
+using std::endl;
 
 
 
@@ -86,8 +89,8 @@ TClient* TServer::OnConnect(SOCKET client_sock, int m_nPort)
 HRESULT TServer::OnDisconnect(LPVOID lpvParam, DWORD dwIndex)
 {
 	TServer *pListener = (TServer *)lpvParam;
-
-
-
+	SOCKET s = pListener->listeningSockets[dwIndex].hSocket;
+	cout << "Disconnected: " << s << endl;
+	pListener->OnClose(dwIndex);
 	return S_OK;
 }

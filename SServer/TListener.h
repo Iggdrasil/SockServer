@@ -38,6 +38,7 @@ public:
 
 	static void startListenThreadProc(LPVOID lpvParam);
 	static HRESULT OnRecive(SOCKET socket, DWORD dwIndex, WSABUF* recvBuffer, DWORD* numRecvBytes);
+	HRESULT OnClose(DWORD dwIndex);
 
 	SOCKET Accept(DWORD dwIndex);
 

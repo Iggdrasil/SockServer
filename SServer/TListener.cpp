@@ -64,6 +64,13 @@ HRESULT TListener::OnRecive(SOCKET socket, DWORD dwIndex, WSABUF* recvBuffer, DW
 	return S_OK;
 }
 
+HRESULT TListener::OnClose(DWORD dwIndex)
+{
+	closesocket(listeningSockets[dwIndex].hSocket);
+	
+	return S_OK;
+}
+
 SOCKET TListener::Accept(DWORD dwIndex)
 {
 	// accept connection

@@ -23,7 +23,7 @@ std::vector<std::string> THttpHeaderParser::split(const std::string & s, const s
 	}
 	return splitted;
 }
-
+/*
 std::string THttpHeaderParser::getMethod(const std::string & request)
 {
 
@@ -34,7 +34,7 @@ std::string THttpHeaderParser::getUrl(const std::string & request)
 {
 
 }
-
+*/
 THttpHeaderParser::THttpHeaderParser()
 {
 }
